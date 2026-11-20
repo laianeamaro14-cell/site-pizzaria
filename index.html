@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzaria Bella Massa | Delivery</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fff8f0 0%, #fef2e6 100%);
+      color: #2d1e12;
+      line-height: 1.5;
+      padding: 1.5rem 2rem;
+      min-height: 100vh;
+    }
+
+    /* Container principal */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* Header com estilo rústico */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      background: #ffffffd9;
+      backdrop-filter: blur(8px);
+      padding: 1rem 2rem;
+      border-radius: 80px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.03);
+      border: 1px solid #f0d9c0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo i {
+      font-size: 2.8rem;
+      color: #c44b2e;
+      filter: drop-shadow(0 4px 6px rgba(196, 75, 46, 0.2));
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #3b2a1c;
+    }
+
+    .logo span {
+      color: #c44b2e;
+      font-weight: 800;
+    }
+
+    .delivery-badge {
+      background: #2e7d32;
+      color: white;
+      padding: 0.6rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 12px rgba(46, 125, 50, 0.25);
+      transition: transform 0.2s;
+    }
+
+    .delivery-badge i {
+      font-size: 1.2rem;
+    }
+
+    .delivery-badge:hover {
+      transform: scale(1.02);
+    }
+
+    /* Título da seção */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 2rem 0 1.8rem 0;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #3b2a1c;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title i {
+      font-size: 2rem;
+      color: #c44b2e;
+      background: #fceae3;
+      padding: 10px;
+      border-radius: 50%;
+    }
+
+    .section-title .divider {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #e7cbb8, transparent);
+    }
+
+    /* Grid de produtos */
+    .pizzas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Card de pizza */
+    .pizza-card {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 1.8rem 1.5rem 1.8rem 1.5rem;
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+      border: 1px solid #f5e3d5;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pizza-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 40px -12px rgba(196, 75, 46, 0.2), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+      border-color: #e3c9b6;
+    }
+
+    /* Ícone decorativo de fundo */
+    .pizza-card::before {
+      content: "🍕";
+      position: absolute;
+      font-size: 7rem;
+      right: -20px;
+      bottom: -30px;
+      opacity: 0.08;
+      transform: rotate(15deg);
+      pointer-events: none;
+    }
+
+    .pizza-icon {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pizza-icon .badge {
+      background: #fceae3;
+      color: #c44b2e;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      border: 1px solid #f0cfbc;
+    }
+
+    .pizza-card h3 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 0.5rem 0 0.4rem 0;
+      color: #2d1e12;
+      letter-spacing: -0.02em;
+    }
+
+    .pizza-desc {
+      font-size: 0.95rem;
+      color: #7a5e4b;
+      margin-bottom: 1.5rem;
+      line-height: 1.45;
+      flex: 1;
+      font-weight: 400;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      border-top: 2px dashed #f0dbce;
+      padding-top: 1.2rem;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #c44b2e;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .price small {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a1785e;
+    }
+
+    .btn-pedir {
+      background: #c44b2e;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.8rem 1.6rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 16px -6px rgba(196, 75, 46, 0.4);
+      border: 1px solid #b33e23;
+    }
+
+    .btn-pedir i {
+      font-size: 0.9rem;
+    }
+
+    .btn-pedir:hover {
+      background: #a13d23;
+      box-shadow: 0 12px 20px -6px rgba(196, 75, 46, 0.5);
+      transform: scale(1.02);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-top: 1px solid #f0d9c8;
+      color: #9b7b65;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    footer i {
+      color: #c44b2e;
+      margin: 0 5px;
+    }
+
+    .footer-horario {
+      font-size: 0.95rem;
+      background: #faf0e9;
+      display: inline-block;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      margin: 0 auto;
+    }
+
+    /* Aviso de preços aleatórios (apenas informativo) */
+    .random-note {
+      font-size: 0.75rem;
+      color: #b69b88;
+      text-align: right;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* Responsividade */
+    @media (max-width: 650px) {
+      body {
+        padding: 1rem;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        border-radius: 40px;
+        padding: 1.2rem 1.5rem;
+      }
+
+      .logo h1 {
+        font-size: 1.7rem;
+      }
+
+      .logo i {
+        font-size: 2.2rem;
+      }
+
+      .delivery-badge {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .pizzas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .pizza-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i class="fas fa-pizza-slice"></i>
+        <h1>Bella <span>Massa</span></h1>
+      </div>
+      <div class="delivery-badge">
+        <i class="fas fa-motorcycle"></i> Delivery em 30 min
+      </div>
+    </header>
+
+    <!-- Título do cardápio -->
+    <div class="section-title">
+      <i class="fas fa-fire"></i>
+      <h2>Menu da casa</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Grid de pizzas (os preços são aleatórios, definidos por JavaScript) -->
+    <div class="pizzas-grid" id="pizzasGrid">
+      <!-- Os cards serão gerados pelo JavaScript -->
+    </div>
+
+    <!-- Nota sobre preços aleatórios -->
+    <div class="random-note">
+      <i class="fas fa-sync-alt"></i> Preços atualizados aleatoriamente a cada visita
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-horario">
+        <i class="far fa-clock"></i> Ter–Dom, 18h às 23h30
+      </div>
+      <p>
+        <i class="fas fa-map-pin"></i> Rua das Massas, 123 · 
+        <i class="fas fa-phone-alt"></i> (11) 4002-8922
+      </p>
+      <p style="font-size: 0.85rem; opacity: 0.8;">
+        <i class="fas fa-leaf"></i> Ingredientes frescos e forno a lenha
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      // Lista de pizzas com descrições (saborosas e aleatórias)
+      const pizzas = [
+        {
+          nome: "Margherita",
+          descricao: "Molho de tomate italiano, mussarela de búfala, manjericão fresco e azeite extra virgem.",
+          icone: "🍕",
+          badge: "Clássica"
+        },
+        {
+          nome: "Calabresa Artesanal",
+          descricao: "Calabresa fatiada na hora, cebola roxa, azeitonas pretas e orégano da serra.",
+          icone: "🍕",
+          badge: "Mais pedida"
+        },
+        {
+          nome: "Quatro Queijos",
+          descricao: "Mussarela, provolone, gorgonzola e parmesão. Combinação cremosa e intensa.",
+          icone: "🧀",
+          badge: "Premium"
+        },
+        {
+          nome: "Frango com Catupiry",
+          descricao: "Frango desfiado temperado, catupiry original, milho verde e cheiro-verde.",
+          icone: "🍗",
+          badge: "Favorita"
+        },
+        {
+          nome: "Pepperoni Picante",
+          descricao: "Pepperoni importado, pimenta calabresa, cebola caramelizada e mussarela.",
+          icone: "🌶️",
+          badge: "Apimentada"
+        },
+        {
+          nome: "Vegetariana Rústica",
+          descricao: "Abobrinha, berinjela, pimentão, tomate seco, rúcula e queijo vegano (opcional).",
+          icone: "🥦",
+          badge: "Vegetariana"
+        },
+        {
+          nome: "Portuguesa da Casa",
+          descricao: "Presunto, ovos, cebola, ervilha, azeitonas e mussarela. Receita tradicional.",
+          icone: "🥚",
+          badge: "Tradicional"
+        },
+        {
+          nome: "Doce de Nutella",
+          descricao: "Nutella, morangos frescos, raspas de chocolate e açúcar de confeiteiro.",
+          icone: "🍫",
+          badge: "Sobremesa"
+        }
+      ];
+
+      // Função para gerar preço aleatório entre 39.90 e 89.90 (com centavos)
+      function precoAleatorio() {
+        // Gera um valor entre 3990 e 8990 (centavos) e converte para reais
+        const centavos = Math.floor(Math.random() * (8990 - 3990 + 1)) + 3990;
+        return (centavos / 100).toFixed(2);
+      }
+
+      // Renderiza os cards no grid
+      const grid = document.getElementById('pizzasGrid');
+
+      pizzas.forEach(pizza => {
+        const preco = precoAleatorio();
+        // Separa reais e centavos para formatar bonito
+        const [reais, centavos] = preco.split('.');
+        
+        const card = document.createElement('div');
+        card.className = 'pizza-card';
+        
+        card.innerHTML = `
+          <div class="pizza-icon">
+            <span style="font-size: 2.8rem;">${pizza.icone}</span>
+            <span class="badge">${pizza.badge}</span>
+          </div>
+          <h3>${pizza.nome}</h3>
+          <p class="pizza-desc">${pizza.descricao}</p>
+          <div class="price-row">
+            <div class="price">
+              R$ ${reais}<small>,${centavos}</small>
+            </div>
+            <button class="btn-pedir" onclick="alert('🍕 ${pizza.nome} adicionada ao pedido! (Simulação)')">
+              <i class="fas fa-plus-circle"></i> Pedir
+            </button>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    })();
+  </script>
+  <!-- Pequeno ajuste para o onclick funcionar com template string (escape) -->
+  <script>
+    // O alerta acima usa template string, mas como estamos dentro de uma função, 
+    // precisamos garantir que as aspas simples não quebrem. Já está ok.
+  </script>
+</body>
+</html>
